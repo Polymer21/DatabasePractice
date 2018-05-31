@@ -9,12 +9,12 @@ const server = Hapi.server({
 
 server.route({
     method: 'GET',
-    path:"/toys",
+    path:'/toys',
     handler: (request, h) => {
         return { toys:[{
             make: "Disney",
             model: "Toy Story",
-            year: '1996',
+            year: '1996'
 
         },{
             make: "harbor",
@@ -30,6 +30,22 @@ server.route({
         }
     }
 });
+
+server.route({
+    method: 'POST',
+    path: '/toys',
+    handler: (request, h) => {
+        console.log(request.payload)
+        return h.response() 
+    },
+    config: {
+        cors: {
+            origin: ['*'],
+            additionalHeaders: ['cache-control', 'x-requested-with']
+        }
+    }
+})
+
 
 async function start() {
     try {
